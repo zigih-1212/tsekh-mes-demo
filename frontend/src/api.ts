@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: '/api' })
+// В dev — прокси Vite на localhost:8000; в проде можно задать VITE_API_URL (напр. Workers-бэкенд)
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL ?? '/api' })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('tsekh_token')
