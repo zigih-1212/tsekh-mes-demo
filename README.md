@@ -5,6 +5,13 @@
 > 🌐 **Live (фронтенд на Cloudflare Pages/Workers):** https://tsekh-demo.dvybornyh332.workers.dev — для работы API нужен запущенный backend (см. ниже), либо задайте `VITE_API_URL` при сборке.
 > 📦 **GitHub:** https://github.com/zigih-1212/tsekh-mes-demo
 
+## Скриншоты
+
+![Дашборд](docs/screenshots/02-dashboard.png)
+![Заказы](docs/screenshots/03-orders.png)
+![Карточка заказа](docs/screenshots/04-order-detail.png)
+![Склад](docs/screenshots/08-warehouse.png)
+
 ## Что умеет
 
 - Каталог изделий с **BOM** (материалы на единицу) и **маршрутом** (операции, участки, норма времени, сдельная ставка)
