@@ -2,7 +2,7 @@
 
 > Демо-проект под вакансию **fullstack-разработчик автоматизации производства** (Артрейд / НПО ТехПродЗдрав, hirehi.ru). Вся доменная модель — реальное швейное производство медицинских изделий с микросферами: раскрой → пошив → вышивка → дозирование → ОТК → упаковка → склад ГП.
 >
-> 🌐 **Live (фронтенд на Cloudflare Pages):** https://tsekh-demo.pages.dev — для работы API нужен запущенный backend (см. ниже), либо задайте `VITE_API_URL` при сборке.
+> 🌐 **Live (фронтенд на Cloudflare Pages/Workers):** https://tsekh-demo.dvybornyh332.workers.dev — для работы API нужен запущенный backend (см. ниже), либо задайте `VITE_API_URL` при сборке.
 > 📦 **GitHub:** https://github.com/zigih-1212/tsekh-mes-demo
 
 ## Что умеет
@@ -102,4 +102,4 @@ npx wrangler login          # OAuth, токен не коммитим
 npx wrangler pages deploy dist --project-name tsekh-demo
 ```
 
-Адрес: `https://tsekh-demo.pages.dev`. Если backend деплоится отдельно (напр. на Workers), задайте при сборке `VITE_API_URL=https://<api-домен>/api`.
+Адрес: `https://tsekh-demo.dvybornyh332.workers.dev`. Если backend деплоится отдельно (напр. на Workers), задайте при сборке `VITE_API_URL=https://<api-домен>/api`.
