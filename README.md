@@ -2,7 +2,7 @@
 
 > Демо-проект под вакансию **fullstack-разработчик автоматизации производства** (Артрейд / НПО ТехПродЗдрав, hirehi.ru). Вся доменная модель — реальное швейное производство медицинских изделий с микросферами: раскрой → пошив → вышивка → дозирование → ОТК → упаковка → склад ГП.
 >
-> 🌐 **Live (фронтенд на Cloudflare Pages/Workers):** https://tsekh-demo.dvybornyh332.workers.dev — для работы API нужен запущенный backend (см. ниже), либо задайте `VITE_API_URL` при сборке.
+> 🌐 **Live-демо (Cloudflare Workers):** https://tsekh-demo.dvybornyh332.workers.dev — полностью интерактивно без backend: вход, заказы, задания и склад работают на mock-API в браузере. Логин: `admin@artraid.demo` / `admin123`.
 > 📦 **GitHub:** https://github.com/zigih-1212/tsekh-mes-demo
 
 ## Скриншоты
@@ -28,7 +28,8 @@ tsekh-demo/
 │   ├── app/            # models, routers, seed, main
 │   └── tests/
 ├── frontend/           # React 19 + TS + Vite, react-query, recharts
-│   └── src/pages/      # Login, Dashboard, Orders, Tasks, Catalog, Warehouse, Users
+│   ├── src/pages/      # Login, Dashboard, Orders, Tasks, Catalog, Warehouse, Users
+│   └── src/demo/       # mock-API и данные для live-демо без backend
 ├── docs/
 │   ├── ADR-001-erpnext.md   # что из ERPNext использовать/доработать/заменить
 │   └── WALKTHROUGH.md       # разбор архитектуры для собеседования
@@ -100,13 +101,19 @@ cd backend
 
 Документация: `docs/ADR-001-erpnext.md` (что использовать/доработать/заменить в ERPNext), `docs/WALKTHROUGH.md` (разбор для собеседования).
 
-## Деплой фронтенда на Cloudflare Pages
+## Деплой live-демо на Cloudflare Workers
 
 ```bash
 cd frontend
-npm run build
+npm run build:demo          # VITE_DEMO_MODE=true из .env.demo
 npx wrangler login          # OAuth, токен не коммитим
-npx wrangler pages deploy dist --project-name tsekh-demo
+npx wrangler deploy         # конфиг в wrangler.jsonc, SPA fallback включён
 ```
 
-Адрес: `https://tsekh-demo.dvybornyh332.workers.dev`. Если backend деплоится отдельно (напр. на Workers), задайте при сборке `VITE_API_URL=https://<api-домен>/api`.
+`wrangler.jsonc` использует `assets.not_found_handling: "single-page-application"`,
+поэтому прямые ссылки вида `/login` и `/orders` отдают `index.html`.
+
+Для сборки против настоящего API: `npm run build` (при необходимости с
+`VITE_API_URL=https://<api-домен>/api`). Изменения в live-демо хранятся в памяти
+браузера и сбрасываются после перезагрузки страницы — это осознанное ограничение
+mock-режима, а не поведение backend.

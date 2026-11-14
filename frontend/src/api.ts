@@ -1,7 +1,14 @@
 import axios from 'axios'
 
 // В dev — прокси Vite на localhost:8000; в проде можно задать VITE_API_URL (напр. Workers-бэкенд)
+// VITE_DEMO_MODE=true (сборка --mode demo) — live-демо без backend: mock-адаптер вместо HTTP
+import { mockAdapter } from './demo/mockApi'
+
 const api = axios.create({ baseURL: import.meta.env.VITE_API_URL ?? '/api' })
+
+if (import.meta.env.VITE_DEMO_MODE === 'true') {
+  api.defaults.adapter = mockAdapter
+}
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('tsekh_token')
